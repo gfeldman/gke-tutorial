@@ -1,13 +1,14 @@
 locals {
-  project = "gke-tutorial-xxxxxx"
+  project = "gke-notes"
 }
+
 
 module "cluster" {
 
   project                             = local.project
   source                              = "./gke"
-  region                              = "europe-north1"
-  location                            = "europe-north1-a"
+  region                              = "us-east1"
+  location                            = "us-east1-c"
   cluster_name                        = "kluster"
   cluster_range_name                  = "gke-pods"
   services_range_name                 = "gke-services"
@@ -25,7 +26,7 @@ module "cluster" {
 
   node_pools = {
     ingress-pool = {
-      machine_type       = "f1-micro" # $$$
+      machine_type       = "g1-small" # $$$
       initial_node_count = 1
       min_node_count     = 1
       max_node_count     = 1
@@ -38,10 +39,10 @@ module "cluster" {
       service_account    = "kluster-serviceaccount@${local.project}.iam.gserviceaccount.com"
     }
     web-pool = {
-      machine_type       = "f1-micro" # $$$
-      initial_node_count = 1
-      min_node_count     = 1
-      max_node_count     = 1
+      machine_type       = "g1-small" # $$$
+      initial_node_count = 2
+      min_node_count     = 2
+      max_node_count     = 2
       preemptible        = true
       auto_repair        = true
       auto_upgrade       = true
